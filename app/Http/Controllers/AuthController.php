@@ -20,7 +20,9 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             } elseif ($user->role === 'dokter') {
                 return redirect()->route('dokter.dashboard');
-            }return redirect()->route('pasien.dashboard');
+            } else {
+            return redirect()->route('pasien.dashboard');
+            }
         }
         return back()->withErrors(['email' => 'Email dan Paswword Salah !']);
     }
