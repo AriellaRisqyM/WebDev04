@@ -1,3 +1,4 @@
+
 <x-layouts.app title="Data Dokter">
     <div class="container-fluid px-4 mt-4">
         <div class="row">
@@ -31,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($dokters as $dokter )
+                            @forelse ($dokters as $dokter)
                                 <tr>
                                     <td>{{ $dokter->nama }}</td>
                                     <td>{{ $dokter->email }}</td>
@@ -44,13 +45,16 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="{{ route('dokter.edit', $dokter->id) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('dokter.edit', $dokter->id) }}"
+                                            class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>Edit
                                         </a>
-                                        <form action="{{ route('dokter.destroy', $dokter->id) }}" method="POST" style="display: inline-block;">
+                                        <form action="{{ route('dokter.destroy', $dokter->id) }}" method="POST"
+                                            style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus dokter ini ?')">
+                                            <button class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Yakin ingin menghapus dokter ini ?')">
                                                 <i class="fas fa-trash"></i> Hapus
                                             </button>
                                         </form>

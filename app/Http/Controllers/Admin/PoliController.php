@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Poli;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use PDO;
 
 class PoliController extends Controller
@@ -47,12 +48,6 @@ class PoliController extends Controller
         $poli = Poli::findOrFail($id);
         $poli->update($validated);
         return redirect()->route('polis.index')->with('success', 'Polis berhasil di update');
-    }
-
-    public function show($id)
-    {
-        $poli = Poli::findOrFail($id);
-        return view('admin.polis.show', compact('poli'));
     }
 
     public function destroy($id)

@@ -1,20 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Poli;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class DokterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+   public function index()
     {
-        // dimana role adalah dokter
         $dokters = User::where('role', 'dokter')->with('poli')->get();
         return view('admin.dokter.index', compact('dokters'));
     }
@@ -33,17 +30,15 @@ class DokterController extends Controller
      */
     public function store(Request $request)
     {
-        //1. membuat validasi
-        $data = $request->validate([
+        $request->validate([
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
             'no_ktp' => 'required|string|max:16|unique:users,no_ktp',
             'no_hp' => 'required|string|max:15',
-            'id_poli' => 'required|string|exists:poli,id', // intinya id nya ada di poli
-            'email' => 'required|string|unique:users,email',
+            'id_poli' => 'required|exists:poli,id',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
         ]);
-        // dd($data);
 
         User::create([
             'nama' => $request->nama,
@@ -56,11 +51,17 @@ class DokterController extends Controller
             'role' => 'dokter',
         ]);
 
-
-
         return redirect()->route('dokter.index')
-            ->with('message', 'Data Dokter Berhasil di tambahkan')
+            ->with('message', 'Dokter berhasil ditambahkan.')
             ->with('type', 'success');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
     }
 
     /**
@@ -68,40 +69,33 @@ class DokterController extends Controller
      */
     public function edit(User $dokter)
     {
-        // $polis = User::all(); // janggal, kan beneran
         $polis = Poli::all();
         return view('admin.dokter.edit', compact('dokter', 'polis'));
     }
 
     /**
      * Update the specified resource in storage.
-     * $dokter adalah route model binding jadi yang harus nya kita buat
-     * $dokter = User::findOrFail($id); kita bisa membuat menjadi parameter, namun jika menggunakan ccara tersebut kita route nya tidak bisa admin/dokter{id}/edit namun seperi admin/dokter/{dokter}/edit
      */
-
-    public function update(Request $request, User $dokter)
+     public function update(Request $request, User $dokter)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string',
-            // 'no_ktp' => 'required|string|max:16|unique:users,no_ktp',
-            'no_ktp' => 'required|string|max:16|unique:users,no_ktp,' . $dokter->id, // “Email harus unik, tapi jangan hitung email si dokter yang ini.”
+            // FIX: Mengabaikan ID dokter saat ini (.$dokter->id) agar KTP lama bisa digunakan
+            'no_ktp' => 'required|string|max:16|unique:users,no_ktp,' . $dokter->id,
             'no_hp' => 'required|string|max:15',
-            'id_poli' => 'required|string|exists:poli,id', // intinya id nya ada di poli
-            // 'email' => 'required|string|unique:users,email',
-            'email' => 'required|string|unique:users,email,' . $dokter->id, // No KTP harus unik, tapi jangan hitung NO KTP si dokter yang ini.”
-            'password' => 'nullable|string|min:6',
+            'id_poli' => 'required|exists:poli,id', 
+            // FIX: Menggunakan 'email' dan mengabaikan ID dokter saat ini
+            'email' => 'required|email|unique:users,email,' . $dokter->id,
+            'password' => 'nullable|min:6',
         ]);
 
-
-        $updateData = [
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'no_ktp' => $request->no_ktp,
-            'no_hp' => $request->no_hp,
-            'id_poli' => $request->id_poli,
-            'email' => $request->email,
-        ];
+        $dokter->nama = $request->nama;
+        $dokter->alamat = $request->alamat;
+        $dokter->no_ktp = $request->no_ktp;
+        $dokter->no_hp = $request->no_hp;
+        $dokter->id_poli = $request->id_poli;
+        $dokter->email = $request->email;
 
         //update password bila password disii
         if ($request->filled('password')) {
@@ -109,11 +103,10 @@ class DokterController extends Controller
         }
 
         //disimpan
-        $dokter->update($updateData);
+        $dokter->save();
 
-        return redirect()->route('dokter.index')
-            ->with('message', 'Data Dokter Berhasil di ubah')
-            ->with('type','success');
+        // Mengubah 'success' menjadi 'message' agar konsisten dengan format flash message
+        return redirect()->route('dokter.index')->with('message', 'Data Dokter Berhasil di ubah')->with('type', 'success');
     }
 
     /**
@@ -122,8 +115,7 @@ class DokterController extends Controller
     public function destroy(User $dokter)
     {
         $dokter->delete();
-        return redirect()->route('dokter.index')
-            ->with('message', 'Data Dokter Berhasil dihapus')
-            ->with('type', 'success');
+        // Mengubah 'success' menjadi 'message' agar konsisten dengan format flash message
+        return redirect()->route('dokter.index')->with('message', 'Data Dokter Berhasil dihapus')->with('type', 'success');
     }
 }

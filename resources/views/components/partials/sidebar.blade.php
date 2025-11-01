@@ -1,4 +1,3 @@
-
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
@@ -34,10 +33,10 @@
                     </li>
                     <li class="nav-item ">
                         <<a href="{{ route('polis.index') }}"
-                            class="nav-link {{ request()->routeIs('polis.*') ? 'active' : '' }}">
+                            class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
-                                Manajemen poli
+                                managemen poli
                             </p>
                             </a>
                     </li>
@@ -45,20 +44,28 @@
                         <<a href="{{ route('dokter.index') }}"
                             class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-columns"></i>
-                            <p> Manajemen Dokter</p></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('pasien.index') }}" class="nav-link {{ request()->routeIs('pasien.*') ? 'active' : '' }}"> 
-                            <i class="nav-icon fas fa-user-injured"></i>
                             <p>
-                                Manajemen Pasien 
-                            </p> 
-                        </a> 
-                    </li> 
-                    <li class="nav-item">
-                        <a href="{{ route('obat.index') }}" class="nav-link {{ request()->routeIs('obat.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-pills"></i>
-                            <p>Manajemen Obat</p></a>
+                                managemen Doktor
+                            </p>
+                            </a>
+                    </li>
+                    <li class="nav-item ">
+                        <<a href="{{ route('pasien.index') }}"
+                            class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                managemen Pasien
+                            </p>
+                            </a>
+                    </li>
+                    <li class="nav-item ">
+                        <<a href="{{ route('obat.index') }}"
+                            class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                managemen Obat
+                            </p>
+                            </a>
                     </li>
                 @endif
 
@@ -86,6 +93,15 @@
                                 Dashboard Dokter
                             </p>
                         </a>
+                    </li>
+                    <li class="nav-item ">
+                        <<a href="{{ route('jadwal-periksa.index') }}"
+                            class="nav-link {{ request()->routeIs('jadwal-periksa.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-columns"></i>
+                            <p>
+                                jadwal periksa
+                            </p>
+                            </a>
                     </li>
                 @endif
 
