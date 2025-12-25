@@ -11,9 +11,14 @@ class Obat extends Model
     protected $fillable = [
         'nama_obat',
         'kemasan',
-        'harga'
+        'harga',
+        'stok' // Tambahkan field stok agar bisa diisi secara mass-assignment
     ];
 
+    /**
+     * Relasi ke detail_periksa
+     * Digunakan untuk melihat histori pemakaian obat dalam resep
+     */
     public function detailPeriksas()
     {
         return $this->hasMany(DetailPeriksa::class, 'id_obat');

@@ -21,16 +21,19 @@ class ObatController extends Controller
 
     public function store(Request $request)
     {
+        // Menambahkan validasi stok [cite: 16, 19]
         $request->validate([
             'nama_obat' => 'required|string|max:255',
             'kemasan' => 'nullable|string|max:35',
             'harga' => 'required|integer|min:0',
+            'stok' => 'required|integer|min:0', // Validasi stok minimal 0 [cite: 19]
         ]);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
+            'stok' => $request->stok, // Menyimpan stok awal 
         ]);
 
         return redirect()->route('obat.index')
@@ -45,16 +48,19 @@ class ObatController extends Controller
 
     public function update(Request $request, Obat $obat)
     {
+        // Menambahkan validasi stok untuk update manual 
         $request->validate([
             'nama_obat' => 'required|string|max:255',
             'kemasan' => 'nullable|string|max:35',
-            'harga' => 'required|integer|min:0'
+            'harga' => 'required|integer|min:0',
+            'stok' => 'required|integer|min:0' 
         ]);
 
         $obat->update([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
+            'stok' => $request->stok, // Admin dapat mengubah stok secara manual 
         ]);
         
         return redirect()->route('obat.index')->with('message', 'Data obat Berhasil di ubah')->with('type', 'success');
@@ -63,8 +69,6 @@ class ObatController extends Controller
     public function destroy(Obat $obat)
     {
         $obat->delete();
-
-
         return redirect()->route('obat.index')->with('message', 'Data obat Berhasil dihapus')->with('type', 'success');
     }
 }

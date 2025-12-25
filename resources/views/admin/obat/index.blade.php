@@ -24,6 +24,7 @@
                                 <th>Id</th>
                                 <th>Nama Obat</th>
                                 <th>Kemasan</th>
+                                <th>Stok Obat</th>
                                 <th>Harga</th>
                                 <th style="width: 150px;">Aksi</th>
                             </tr>
@@ -34,6 +35,7 @@
                                     <td>{{ $obats->id}}</td>
                                     <td>{{ $obats->nama_obat}}</td>
                                     <td>{{ $obats->kemasan }}</td>
+                                    <td>{{ $obats->stok }}</td>
                                     <td>{{ $obats->harga }}</td>
                                     <td>
                                         <a href="{{ route('obat.edit', $obats->id) }}" class="btn btn-sm btn-warning">

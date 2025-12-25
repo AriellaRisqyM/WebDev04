@@ -5,7 +5,10 @@
 
                 <h1 class="mb-4">Edit Obat</h1>
 
-                <div class="card">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Form Edit Data Obat</h6>
+                    </div>
                     <div class="card-body">
                         <form action="{{ route('obat.update', $obat->id) }}" method="POST">
                             @csrf
@@ -40,25 +43,44 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mb-3">
-                                <label for="harga" class="form-label">Harga
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <input type="number" name="harga" id="harga"
-                                    class="form-control @error('harga') is-invalid @enderror"
-                                    value="{{ old('harga', $obat->harga) }}" required min="0" step="1">
-                                @error('harga')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="harga" class="form-label">Harga (Rp)
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="number" name="harga" id="harga"
+                                            class="form-control @error('harga') is-invalid @enderror"
+                                            value="{{ old('harga', $obat->harga) }}" required min="0" step="1">
+                                        @error('harga')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                {{-- FITUR UAS: Input stok untuk manajemen manual oleh Admin --}}
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="stok" class="form-label">Stok Saat Ini
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="number" name="stok" id="stok"
+                                            class="form-control @error('stok') is-invalid @enderror"
+                                            value="{{ old('stok', $obat->stok) }}" required min="0">
+                                        @error('stok')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group mt-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Update
-                                </button>
+                            <div class="form-group mt-4 text-end">
                                 <a href="{{ route('obat.index') }}" class="btn btn-secondary">
                                     <i class="fas fa-arrow-left"></i> Kembali
                                 </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Update Data
+                                </button>
                             </div>
                         </form>
                     </div>
