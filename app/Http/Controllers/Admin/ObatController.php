@@ -21,19 +21,19 @@ class ObatController extends Controller
 
     public function store(Request $request)
     {
-        // Menambahkan validasi stok [cite: 16, 19]
+       
         $request->validate([
             'nama_obat' => 'required|string|max:255',
             'kemasan' => 'nullable|string|max:35',
             'harga' => 'required|integer|min:0',
-            'stok' => 'required|integer|min:0', // Validasi stok minimal 0 [cite: 19]
+            'stok' => 'required|integer|min:0', 
         ]);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
-            'stok' => $request->stok, // Menyimpan stok awal 
+            'stok' => $request->stok, 
         ]);
 
         return redirect()->route('obat.index')
@@ -60,7 +60,7 @@ class ObatController extends Controller
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
             'harga' => $request->harga,
-            'stok' => $request->stok, // Admin dapat mengubah stok secara manual 
+            'stok' => $request->stok, 
         ]);
         
         return redirect()->route('obat.index')->with('message', 'Data obat Berhasil di ubah')->with('type', 'success');

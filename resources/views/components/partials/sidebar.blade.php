@@ -36,7 +36,7 @@
                             class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
-                                managemen poli
+                                Management Poli
                             </p>
                             </a>
                     </li>
@@ -44,9 +44,7 @@
                         <<a href="{{ route('dokter.index') }}"
                             class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-columns"></i>
-                            <p>
-                                managemen Doktor
-                            </p>
+                            <p> Management Doktor</p>
                             </a>
                     </li>
                     <li class="nav-item ">
@@ -54,7 +52,7 @@
                             class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
-                                managemen Pasien
+                                Management Pasien
                             </p>
                             </a>
                     </li>
@@ -63,7 +61,7 @@
                             class="nav-link {{ request()->routeIs('dokter.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-columns"></i>
                             <p>
-                                managemen Obat
+                                Management Obat
                             </p>
                             </a>
                     </li>

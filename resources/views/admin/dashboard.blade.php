@@ -2,7 +2,6 @@
     <div class="container-fluid px-4 mt-4">
         <h1 class="mb-4">Halo, Selamat Datang Admin!</h1>
 
-        {{-- BAGIAN SEDERHANA: Mengambil data langsung di Blade --}}
         @php
             // Mengambil obat yang stoknya di bawah 5
             $obatmenipis = \App\Models\Obat::where('stok', '<', 10)->get();
@@ -31,7 +30,6 @@
         {{-- Konten Dashboard Lainnya --}}
         <div class="card mt-3">
             <div class="card-body">
-                ...
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@ class Obat extends Model
         'nama_obat',
         'kemasan',
         'harga',
-        'stok' // Tambahkan field stok agar bisa diisi secara mass-assignment
+        'stok' 
     ];
 
     /**

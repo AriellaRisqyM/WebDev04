@@ -58,7 +58,7 @@ class PeriksaPasienController extends Controller
         // Decode obat JSON
         $obatList = json_decode($request->obat_json, true);
 
-        // 1. VALIDASI STOK: Pastikan semua obat yang dipilih memiliki stok yang cukup
+        // VALIDASI STOK: Pastikan semua obat yang dipilih memiliki stok yang cukup
         foreach ($obatList as $item) {
             $obat = Obat::find($item['id']);
             if (!$obat || $obat->stok < 1) {
@@ -68,7 +68,7 @@ class PeriksaPasienController extends Controller
             }
         }
 
-        // 2. Simpan data pemeriksaan
+        // Simpan data pemeriksaan
         $periksa = Periksa::create([
             'id_daftar_poli' => $request->id_daftar_poli,
             'tgl_periksa'    => now(),
@@ -76,7 +76,7 @@ class PeriksaPasienController extends Controller
             'biaya_periksa'  => $request->biaya_periksa + 150000 // Biaya obat + Jasa Dokter
         ]);
 
-        // 3. Simpan detail obat DAN KURANGI STOK OTOMATIS
+        // Simpan detail obat DAN KURANGI STOK OTOMATIS
         foreach ($obatList as $item) {
             DetailPeriksa::create([
                 'id_periksa' => $periksa->id,

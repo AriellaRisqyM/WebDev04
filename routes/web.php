@@ -3,39 +3,30 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-// =====================
 // ADMIN CONTROLLERS
-// =====================
 use App\Http\Controllers\Admin\PasienController;
 use App\Http\Controllers\Admin\PoliController;
 use App\Http\Controllers\Admin\ObatController;
 use App\Http\Controllers\Admin\DokterController;
 
-// =====================
+
 // DOKTER CONTROLLERS
-// =====================
 use App\Http\Controllers\Dokter\JadwalPeriksaController;
 use App\Http\Controllers\Dokter\PeriksaPasienController;
 use App\Http\Controllers\Dokter\RiwayatPasienController;
 
-// =====================
 // PASIEN CONTROLLERS
-// =====================
 use App\Http\Controllers\Pasien\PoliController as PasienPoliController;
 
 /*
-|--------------------------------------------------------------------------
 | Landing Page
-|--------------------------------------------------------------------------
 */
 Route::get('/', function () {
     return view('welcome');
 });
 
 /*
-|--------------------------------------------------------------------------
 | AUTHENTICATION
-|--------------------------------------------------------------------------
 */
 Route::get('/login', [AuthController::class, 'showLogin'])->name('showlogin');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -43,9 +34,7 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
-|--------------------------------------------------------------------------
 | ROLE: ADMIN
-|--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
@@ -59,9 +48,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
 | ROLE: DOKTER
-|--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function () {
     Route::get('/dashboard', function () {
@@ -90,9 +77,7 @@ Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function () 
 });
 
 /*
-|--------------------------------------------------------------------------
 | ROLE: PASIEN
-|--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->group(function () {
     Route::get('/dashboard', function () {
